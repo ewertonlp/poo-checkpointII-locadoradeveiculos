@@ -1,4 +1,4 @@
-package com.CheckpointII.LocadoraDeVeiculos;
+package com.CheckpointII.LocadoraDeVeiculos.Entidades;
 
 public class Modelo {
     private String nome;
@@ -13,7 +13,6 @@ public class Modelo {
         this.caracteristicas = caracteristicas;
         this.anoFabricacao = anoFabricacao;
     }
-
 
 
     public String getNome() {

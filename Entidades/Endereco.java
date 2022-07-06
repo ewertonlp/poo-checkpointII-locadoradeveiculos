@@ -1,4 +1,4 @@
-package com.CheckpointII.LocadoraDeVeiculos;
+package com.CheckpointII.LocadoraDeVeiculos.Entidades;
 
 import java.util.Scanner;
 

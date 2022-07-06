@@ -1,4 +1,6 @@
-package com.CheckpointII.LocadoraDeVeiculos;
+package com.CheckpointII.LocadoraDeVeiculos.Abstracts;
+
+import com.CheckpointII.LocadoraDeVeiculos.Entidades.Endereco;
 
 public abstract class Pessoa {
     private String cpf;
@@ -15,7 +17,6 @@ public abstract class Pessoa {
         this.telefone = telefone;
         this.email = email;
     }
-
 
     public String getCpf() {
         return cpf;
@@ -48,6 +49,4 @@ public abstract class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 }

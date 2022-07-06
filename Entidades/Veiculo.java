@@ -1,20 +1,21 @@
-package com.CheckpointII.LocadoraDeVeiculos;
+package com.CheckpointII.LocadoraDeVeiculos.Entidades;
 
 public class Veiculo {
     private int idVeiculo;
     private String placa;
     private Modelo modelo;
     private double precoLocacao;
+    private boolean estaDisponivel;
 
 
     // Construtor
-    public Veiculo(int idVeiculo, String placa, Modelo modelo, double precoLocacao) {
+    public Veiculo(int idVeiculo, String placa, Modelo modelo, double precoLocacao, boolean estaDisponivel) {
         this.idVeiculo = idVeiculo;
         this.placa = placa;
         this.modelo = modelo;
         this.precoLocacao = precoLocacao;
+        this.estaDisponivel = estaDisponivel;
     }
-
 
     public int getIdVeiculo() {
         return idVeiculo;
@@ -48,8 +49,11 @@ public class Veiculo {
         this.precoLocacao = precoLocacao;
     }
 
-    //métodos
-    public String cadastrarVeículo() {
-        return cadastrarVeículo();
+    public boolean isEstaDisponivel() {
+        return estaDisponivel;
+    }
+
+    public void setEstaDisponivel(boolean estaDisponivel) {
+        this.estaDisponivel = estaDisponivel;
     }
 }
