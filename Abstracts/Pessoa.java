@@ -10,6 +10,7 @@ public abstract class Pessoa {
     private String email;
 
 
+    public Pessoa() {}
     public Pessoa(String cpf, String nome, Endereco endereco, String telefone, String email) {
         this.cpf = cpf;
         this.nome = nome;

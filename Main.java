@@ -1,11 +1,13 @@
 package com.CheckpointII.LocadoraDeVeiculos;
 
 import com.CheckpointII.LocadoraDeVeiculos.Entidades.*;
+import com.CheckpointII.LocadoraDeVeiculos.Services.ConfigurarCliente;
+import com.CheckpointII.LocadoraDeVeiculos.Services.ConfigurarFuncionario;
+import com.CheckpointII.LocadoraDeVeiculos.Services.ConfigurarLocacao;
+import com.CheckpointII.LocadoraDeVeiculos.Services.ConfigurarVeiculo;
+import com.CheckpointII.LocadoraDeVeiculos.Services.Menus.*;
 import com.CheckpointII.LocadoraDeVeiculos.Statics.DividerService;
 
-import java.io.Console;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -24,61 +26,137 @@ public class Main {
         }
 
         LocadoraVeiculos locadoraVeiculos = new LocadoraVeiculos(nomeLocadora);
+        MainMenu mainMenu = new MainMenu(locadoraVeiculos.getNome());
 
         DividerService.Diviver();
+        System.out.println("Bem vindo a locadora [" + locadoraVeiculos.getNome() + "]");
 
-        System.out.println("Bem vindo a locadora " + locadoraVeiculos.getNome());
-        System.out.println("Agora vamos adicionar os veículos que temos para alugar");
+        int mainMenuOption = 0;
+        int subMenuOption;
 
-        int exit = 1;
+        while (mainMenuOption != 5) {
+            mainMenu.showMainMenu();
 
-        while (exit != 0) {
-            System.out.println("Modelo do veículo: ");
-            String modelo = scanInput.nextLine();
+            mainMenuOption = scanInput.nextInt();
+            scanInput.nextLine();
 
-            System.out.println("Marca do veículo: ");
-            String marca = scanInput.nextLine();
+            DividerService.Diviver();
 
-            System.out.println("Caracteriscas do veículo (como cor, por exemplo): ");
-            String caracteristicas = scanInput.nextLine();
 
-            System.out.println("Ano de fabricação do veículo: ");
-            int anoFabricacao = scanInput.nextInt();
+            switch (mainMenuOption) {
+                case 1: {
+                    SubMenuVeiculo subMenuVeiculos = new SubMenuVeiculo();
+                    subMenuVeiculos.showSubMenuVeiculo();
 
-            System.out.println("Placa: ");
-            String placa = scanInput.nextLine();
+                    subMenuOption = scanInput.nextInt();
+                    scanInput.nextLine();
 
-            System.out.println("Preço locação: ");
-            double precoLocacao = scanInput.nextDouble();
+                    switch (subMenuOption) {
+                        case 1: {
+                            locadoraVeiculos.mostrarVeiculos();
+                            break;
+                        } case 2: {
+                            ConfigurarVeiculo configurarVeiculo = new ConfigurarVeiculo();
+                            Veiculo novoVeiculo = configurarVeiculo.configurarVeiculo();
 
-            Veiculo veiculo = new Veiculo(
-                    locadoraVeiculos.listarVeiculos().get(-1).getIdVeiculo() + 1,
-                    placa,
-                    new Modelo(modelo, marca, caracteristicas, anoFabricacao),
-                    precoLocacao,
-                    true
-            );
+                            locadoraVeiculos.cadastrarVeiculo(novoVeiculo);
+                            break;
+                        } case 3: {
+                            DividerService.Diviver();
+                            break;
+                        }
+                    }
+                    break;
+                } case 2: {
+                    SubMenuFuncionario subMenuFuncionario = new SubMenuFuncionario();
+                    subMenuFuncionario.showSubMenuFuncionario();
 
-            locadoraVeiculos.cadastrarVeiculo(veiculo);
+                    subMenuOption = scanInput.nextInt();
+                    scanInput.nextLine();
 
-            System.out.println("Deseja adicionar mais um veículo? Pressione 0 para não e 1 para sim");
-            exit = scanInput.nextInt();
+                    switch (subMenuOption) {
+                        case 1: {
+                            locadoraVeiculos.mostrarFuncionarios();
+                            break;
+                        } case 2: {
+                            ConfigurarFuncionario configurarFuncionario = new ConfigurarFuncionario();
+                            Funcionario novoFuncionario = configurarFuncionario.configurarFuncionario();
+
+                            locadoraVeiculos.cadastrarFuncionario(novoFuncionario);
+                            break;
+                        } case 3: {
+                            DividerService.Diviver();
+                            break;
+                        }
+                    }
+                    break;
+                } case 3: {
+                    SubMenuCliente subMenuClientes = new SubMenuCliente();
+                    subMenuClientes.showSubMenuCliente();
+
+                    subMenuOption = scanInput.nextInt();
+                    scanInput.nextLine();
+
+                    switch (subMenuOption) {
+                        case 1: {
+                            locadoraVeiculos.mostrarClientes();
+                            break;
+                        } case 2: {
+                            ConfigurarCliente configurarCliente = new ConfigurarCliente();
+                            Cliente novoCliente = configurarCliente.configurarCliente();
+
+                            locadoraVeiculos.cadastrarCliente(novoCliente);
+                            break;
+                        } case 3: {
+                            DividerService.Diviver();
+                            break;
+                        }
+                    }
+                    break;
+                } case 4: {
+                    SubMenuLocadora subMenuLocadora = new SubMenuLocadora();
+                    subMenuLocadora.showSubMenuLocadora();
+
+                    subMenuOption = scanInput.nextInt();
+                    scanInput.nextLine();
+
+                    switch (subMenuOption) {
+                        case 1: {
+                            locadoraVeiculos.mostrarClientes();
+                            break;
+                        } case 2: {
+                            System.out.println("Nome do cliente que vai alugar o veículo");
+                            String clienteNome = scanInput.nextLine();
+
+                            Cliente cliente = locadoraVeiculos.buscarClientePorNome(clienteNome);
+
+                            if (cliente != null) {
+                                System.out.println("Nome do veículo que será alugado");
+                                String veiculoNome = scanInput.nextLine();
+
+                                Veiculo veiculo = locadoraVeiculos.buscarVeiculoPorNome(veiculoNome);
+
+                                if (veiculo != null) {
+                                    locadoraVeiculos.alugarVeiculo(veiculo, cliente);
+                                } else {
+                                    System.out.println("Veículo não encontrado!");
+                                }
+                            } else {
+                                System.out.println("Cliente não encontrado!");
+                            }
+                            break;
+                        } case 3: {
+                            DividerService.Diviver();
+                            break;
+                        }
+                    }
+
+                    break;
+                } case 5: {
+                    System.out.printf("Volte sempre!\n");
+                    break;
+                }
+            }
         }
-
-        Cliente cliente = new Cliente(
-                "009.934.170-00",
-                "Rhuan Bello",
-                new Endereco("25025-235", "Rua Padre Marins Loureiro", 120, "Duque de Caxias"),
-                "(99) 99999-9999",
-                "rhuan@cliente.com",
-                "50.564.295-5");
-
-        Funcionario funcionario = new Funcionario(
-                "916.534.330-19",
-                "Rhuan Funcionario",
-                new Endereco("25051-110", "Rua Virgílio Várzea", 123, "Duque de Caxias"),
-                "(88) 88888-8888",
-                "rhuan@funcionario.com",
-                7200.00);
     }
 }

@@ -4,12 +4,14 @@ import com.CheckpointII.LocadoraDeVeiculos.Entidades.Cliente;
 import com.CheckpointII.LocadoraDeVeiculos.Entidades.Funcionario;
 import com.CheckpointII.LocadoraDeVeiculos.Entidades.Veiculo;
 
-import java.util.List;
-
 public interface LocadoraVeiculosInterface {
     String cadastrarVeiculo(Veiculo veiculo);
     String cadastrarFuncionario(Funcionario funcionario);
-    String cadastrarCliente(Cliente cliente);
-    List<Veiculo> listarVeiculos();
+    void cadastrarCliente(Cliente cliente);
     boolean estaDisponivel(int idVeiculo);
+    String alugarVeiculo(Veiculo veiculo, Cliente cliente);
+    void mostrarClientes();
+    void mostrarVeiculos();
+    void mostrarFuncionarios();
+    void mostrarLocacoes();
 }

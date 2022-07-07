@@ -6,15 +6,15 @@ public class Veiculo {
     private Modelo modelo;
     private double precoLocacao;
     private boolean estaDisponivel;
+    private Cliente locatario;
 
 
     // Construtor
-    public Veiculo(int idVeiculo, String placa, Modelo modelo, double precoLocacao, boolean estaDisponivel) {
-        this.idVeiculo = idVeiculo;
+    public Veiculo(String placa, Modelo modelo, double precoLocacao) {
         this.placa = placa;
         this.modelo = modelo;
         this.precoLocacao = precoLocacao;
-        this.estaDisponivel = estaDisponivel;
+        this.estaDisponivel = true;
     }
 
     public int getIdVeiculo() {
