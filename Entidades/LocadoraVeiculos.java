@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LocadoraVeiculos implements LocadoraVeiculosInterface {
     private String nome;
@@ -45,15 +46,15 @@ public class LocadoraVeiculos implements LocadoraVeiculosInterface {
     }
 
     @Override
-    public String alugarVeiculo(Veiculo veiculo, Cliente cliente) {
+    public void alugarVeiculo(Veiculo veiculo, Cliente cliente) {
         Locacao locacao = new Locacao(
                     cliente,
                     veiculo
             );
 
-            locacoes.add(locacao);
+        locacoes.add(locacao);
 
-            return "Veículo alugado com sucesso!";
+        System.out.println("Veículo alugado com sucesso!");
     }
 
     @Override
@@ -72,7 +73,7 @@ public class LocadoraVeiculos implements LocadoraVeiculosInterface {
         String locacoesString = "";
         for (int i = 0; i < locacoes.size(); i++) {
             Locacao loc = locacoes.get(i);
-            locacoesString += "Modelo veículo: " + loc.getVeiculo().getModelo() + " - Nome cliente: " + loc.getCliente().getNome();
+            locacoesString += "Modelo veículo: " + loc.getVeiculo().getModelo().getNome() + " - Nome cliente: " + loc.getCliente().getNome() + "\n";
         }
 
         System.out.println(locacoesString);
@@ -102,13 +103,10 @@ public class LocadoraVeiculos implements LocadoraVeiculosInterface {
 
     public Cliente buscarClientePorNome(String nomeCliente) {
         try {
-            Cliente clienteEncontrado = (Cliente) clientes.stream().filter(cliente -> cliente.getNome().equals(nomeCliente)).collect();
+            Cliente clienteEncontrado = clientes.stream().filter(cliente -> cliente.getNome().equals(nomeCliente))
+                    .findFirst().orElse(null);
 
-            if (clienteEncontrado.getNome() != null)  {
-                return clienteEncontrado;
-            }
-
-            return null;
+            return clienteEncontrado;
         } catch (Exception ex) {
             return null;
         }
@@ -116,13 +114,10 @@ public class LocadoraVeiculos implements LocadoraVeiculosInterface {
 
     public Veiculo buscarVeiculoPorNome(String nomeVeiculo) {
         try {
-            Veiculo veiculoEncontrado = (Veiculo) veiculos.stream().filter(cliente -> cliente.getModelo().getNome() == nomeVeiculo);
+            Veiculo veiculoEncontrado = veiculos.stream().filter(cliente -> cliente.getModelo().getNome().equals(nomeVeiculo))
+                    .findFirst().orElse(null);
 
-            if (veiculoEncontrado.getModelo().getNome() != null)  {
-                return veiculoEncontrado;
-            }
-
-            return null;
+            return veiculoEncontrado;
         } catch (Exception e) {
             return null;
         }

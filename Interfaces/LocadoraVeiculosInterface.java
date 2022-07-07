@@ -9,7 +9,7 @@ public interface LocadoraVeiculosInterface {
     String cadastrarFuncionario(Funcionario funcionario);
     void cadastrarCliente(Cliente cliente);
     boolean estaDisponivel(int idVeiculo);
-    String alugarVeiculo(Veiculo veiculo, Cliente cliente);
+    void alugarVeiculo(Veiculo veiculo, Cliente cliente);
     void mostrarClientes();
     void mostrarVeiculos();
     void mostrarFuncionarios();

@@ -122,7 +122,7 @@ public class Main {
 
                     switch (subMenuOption) {
                         case 1: {
-                            locadoraVeiculos.mostrarClientes();
+                            locadoraVeiculos.mostrarLocacoes();
                             break;
                         } case 2: {
                             System.out.println("Nome do cliente que vai alugar o veículo");
